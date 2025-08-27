@@ -1,33 +1,137 @@
-<div class="container-fluid container-fluid-custom pb-5 mb-5">
-
-  <div class="row mb-4">
+<div class="container py-5">
+  <!-- Page Header -->
+  <div class="row mb-5">
     <div class="col">
-      <nav aria-label="breadcrumb">
+      <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-          <li class="breadcrumb-item active">Add Note</li>
+          <li class="breadcrumb-item">
+            <a href="/dashboard" class="text-decoration-none">
+              <i class="bi bi-house me-1"></i>Dashboard
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Add Note</li>
         </ol>
       </nav>
-      <div class="col d-flex justify-content-between align-items-center">
-        <h1 class="h3">Add Note</h1>
+      
+      <div class="d-flex align-items-center">
+        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+          <i class="bi bi-plus-circle text-primary fs-4"></i>
+        </div>
+        <div>
+          <h1 class="h2 fw-bold text-primary-emphasis mb-1">Create New Note</h1>
+          <p class="text-muted mb-0">Capture your thoughts and ideas</p>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Note Form -->
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-lg">
+        <div class="card-body p-5">
+          <form action="/dashboard/add" method="POST" class="needs-validation" novalidate>
+            <!-- Title Input -->
+            <div class="mb-4">
+              <label for="title" class="form-label fw-semibold text-primary-emphasis">Note Title</label>
+              <div class="input-group">
+                <span class="input-group-text bg-transparent border-end-0">
+                  <i class="bi bi-type text-muted"></i>
+                </span>
+                <input type="text" 
+                       class="form-control border-start-0 ps-0 fs-5 fw-semibold" 
+                       id="title" 
+                       name="title" 
+                       placeholder="Enter a descriptive title for your note..." 
+                       required>
+              </div>
+              <div class="form-text">
+                <i class="bi bi-lightbulb me-1"></i>
+                A clear title helps you find your note later
+              </div>
+            </div>
 
-  <form action="/dashboard/add" method="POST" class="position-relative">
-    <div class="form-group mb-4 position-absolute" style="left:1px; top:1px; right: 1px;">
-      <input type="text" class="form-control fw-bold border-0 fs-4" id="title" name="title" placeholder="Title" required>
+            <!-- Content Input -->
+            <div class="mb-4">
+              <label for="body" class="form-label fw-semibold text-primary-emphasis">Note Content</label>
+              <div class="position-relative">
+                <textarea class="form-control border-0 bg-light rounded-3 p-4" 
+                          id="body" 
+                          name="body" 
+                          placeholder="Start writing your note here...&#10;&#10;You can write as much as you want.&#10;Your thoughts, ideas, reminders, or anything else that's important to you." 
+                          rows="15" 
+                          required></textarea>
+                
+                <!-- Character Counter -->
+                <div class="position-absolute bottom-0 end-0 p-3">
+                  <small class="text-muted">
+                    <span id="charCount">0</span> characters
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="d-flex gap-3 pt-3">
+              <button type="submit" class="btn btn-primary btn-lg fw-semibold px-5 py-3 rounded-3 shadow-sm">
+                <i class="bi bi-check-circle me-2"></i>Save Note
+              </button>
+              <a href="/dashboard" class="btn btn-outline-secondary btn-lg fw-medium px-5 py-3 rounded-3">
+                <i class="bi bi-x-circle me-2"></i>Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tips Section -->
+      <div class="card border-0 bg-light mt-4">
+        <div class="card-body p-4">
+          <h6 class="fw-semibold text-primary-emphasis mb-3">
+            <i class="bi bi-lightbulb text-warning me-2"></i>Writing Tips
+          </h6>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                <small class="text-muted">Use clear, descriptive titles for easy searching</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                <small class="text-muted">Break long content into paragraphs for readability</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                <small class="text-muted">Add keywords that will help you find the note later</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-start">
+                <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                <small class="text-muted">Review and edit your notes regularly</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="form-group mb-4">
-      <textarea required class="form-control pt-5 fs-4" id="body" name="body" placeholder="Take a note..." rows="12"></textarea>
-    </div>
-
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-lg">+ Add Note</button>
-    </div>
-
-  </form>
-
+  </div>
 </div>
+
+<script>
+// Character counter functionality
+document.getElementById('body').addEventListener('input', function() {
+  const charCount = this.value.length;
+  document.getElementById('charCount').textContent = charCount;
+});
+
+// Auto-resize textarea
+document.getElementById('body').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = this.scrollHeight + 'px';
+});
+</script>

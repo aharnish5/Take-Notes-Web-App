@@ -19,7 +19,7 @@ exports.dashboard = async (req, res) => {
     // Mongoose "^7.0.0 Update
     const notes = await Note.aggregate([
       { $sort: { updatedAt: -1 } },
-      { $match: { user: mongoose.Types.ObjectId(req.user.id) } },
+      { $match: { user: new mongoose.Types.ObjectId(req.session.user._id) } },
       {
         $project: {
           title: { $substr: ["$title", 0, 30] },
@@ -31,10 +31,10 @@ exports.dashboard = async (req, res) => {
     .limit(perPage)
     .exec(); 
 
-    const count = await Note.count();
+    const count = await Note.countDocuments();
 
     res.render('dashboard/index', {
-      userName: req.user.firstName,
+      userName: req.session.user.displayName,
       locals,
       notes,
       layout: "../views/layouts/dashboard",
@@ -45,21 +45,21 @@ exports.dashboard = async (req, res) => {
     // Original Code
     // Note.aggregate([
     //   { $sort: { updatedAt: -1 } },
-    //   { $match: { user: mongoose.Types.ObjectId(req.user.id) } },
+    //   { $match: { user: new mongoose.Types.ObjectId(req.session.user._id) } },
     //   {
     //     $project: {
     //       title: { $substr: ["$title", 0, 30] },
-    //       body: { $substr: ["$body", 0, 100] },
+    //       body: { $substr: ["$body", 0, 100] } },
     //     },
     //   },
     // ])
     //   .skip(perPage * page - perPage)
     //   .limit(perPage)
     //   .exec(function (err, notes) {
-    //     Note.count().exec(function (err, count) {
+    //     Note.countDocuments().exec(function (err, count) {
     //       if (err) return next(err);
     //       res.render("dashboard/index", {
-    //         userName: req.user.firstName,
+    //         userName: req.session.user.displayName,
     //         locals,
     //         notes,
     //         layout: "../views/layouts/dashboard",
@@ -80,7 +80,7 @@ exports.dashboard = async (req, res) => {
  */
 exports.dashboardViewNote = async (req, res) => {
   const note = await Note.findById({ _id: req.params.id })
-    .where({ user: req.user.id })
+    .where({ user: req.session.user._id })
     .lean();
 
   if (note) {
@@ -103,7 +103,7 @@ exports.dashboardUpdateNote = async (req, res) => {
     await Note.findOneAndUpdate(
       { _id: req.params.id },
       { title: req.body.title, body: req.body.body, updatedAt: Date.now() }
-    ).where({ user: req.user.id });
+    ).where({ user: req.session.user._id });
     res.redirect("/dashboard");
   } catch (error) {
     console.log(error);
@@ -116,7 +116,7 @@ exports.dashboardUpdateNote = async (req, res) => {
  */
 exports.dashboardDeleteNote = async (req, res) => {
   try {
-    await Note.deleteOne({ _id: req.params.id }).where({ user: req.user.id });
+    await Note.deleteOne({ _id: req.params.id }).where({ user: req.session.user._id });
     res.redirect("/dashboard");
   } catch (error) {
     console.log(error);
@@ -139,7 +139,7 @@ exports.dashboardAddNote = async (req, res) => {
  */
 exports.dashboardAddNoteSubmit = async (req, res) => {
   try {
-    req.body.user = req.user.id;
+    req.body.user = req.session.user._id;
     await Note.create(req.body);
     res.redirect("/dashboard");
   } catch (error) {
@@ -174,7 +174,7 @@ exports.dashboardSearchSubmit = async (req, res) => {
         { title: { $regex: new RegExp(searchNoSpecialChars, "i") } },
         { body: { $regex: new RegExp(searchNoSpecialChars, "i") } },
       ],
-    }).where({ user: req.user.id });
+    }).where({ user: req.session.user._id });
 
     res.render("dashboard/search", {
       searchResults,

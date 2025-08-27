@@ -8,9 +8,10 @@
     "start": "nodemon app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Aharnish Dubey",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
@@ -18,9 +19,7 @@
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.3",
     "method-override": "^3.0.0",
-    "mongoose": "^6.8.1",
-    "passport": "^0.6.0",
-    "passport-google-oauth20": "^2.0.0"
+    "mongoose": "^6.8.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

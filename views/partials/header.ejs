@@ -1,19 +1,58 @@
-<div class="container-fluid">
-  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
-    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-primary text-decoration-none fw-bold fs-2">
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary shadow-sm border-bottom sticky-top">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center fw-bold fs-3 text-primary-emphasis" href="/">
+      <i class="bi bi-journal-text me-2"></i>
       Notes
     </a>
 
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
-      <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-      <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-      <li><a href="/about" class="nav-link px-2 link-dark">About</a></li>
-    </ul>
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="col-md-3 text-end">
-      <a href="/auth/google" type="button" class="btn btn-outline-primary me-2">Sing Up</a>
-      <a href="/auth/google" type="button" class="btn btn-primary">Sign In</a>
+    <!-- Navigation Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link px-3 fw-medium" href="/">
+            <i class="bi bi-house me-1"></i>Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 fw-medium" href="#features">
+            <i class="bi bi-star me-1"></i>Features
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 fw-medium" href="#faqs">
+            <i class="bi bi-question-circle me-1"></i>FAQs
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 fw-medium" href="/about">
+            <i class="bi bi-info-circle me-1"></i>About
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right Side Actions -->
+      <div class="d-flex align-items-center gap-3">
+        <!-- Theme Toggle -->
+        <button class="btn btn-outline-secondary theme-toggle rounded-circle p-2 border-0 shadow-sm" type="button" title="Switch to Dark Mode">
+          <i class="bi bi-moon-stars-fill"></i>
+        </button>
+        
+        <!-- Auth Buttons -->
+        <div class="d-flex gap-2">
+          <a href="/register" class="btn btn-outline-primary fw-medium px-4 py-2 rounded-3 shadow-sm">
+            <i class="bi bi-person-plus me-1"></i>Sign Up
+          </a>
+          <a href="/login" class="btn btn-primary fw-medium px-4 py-3 rounded-3 shadow-sm">
+            <i class="bi bi-box-arrow-in-right me-1"></i>Sign In
+          </a>
+        </div>
+      </div>
     </div>
-  </header>
-</div>
+  </div>
+</nav>
